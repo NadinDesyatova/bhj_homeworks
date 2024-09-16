@@ -17,16 +17,12 @@ const createCartProductElement = (product) => {
 
 const addProduct = (product) => {
   const productToAddQuantity = product.querySelector('.product__quantity-value');
-  if (cartProducts.length === 0) {
-    createCartProductElement(product);  
+  const existingProduct = [...cartProducts].find(cartProduct => cartProduct.dataset.id === product.dataset.id);
+  if (existingProduct === undefined) {
+    createCartProductElement(product)
   } else {
-    const existingProduct = [...cartProducts].find(cartProduct => cartProduct.dataset.id === product.dataset.id);
-    if (existingProduct === undefined) {
-      createCartProductElement(product)
-    } else {
-      const cartProductValue = existingProduct.querySelector('.cart__product-count');
-      cartProductValue.textContent = (+cartProductValue.textContent) + (+productToAddQuantity.textContent)
-    }
+    const cartProductValue = existingProduct.querySelector('.cart__product-count');
+    cartProductValue.textContent = (+cartProductValue.textContent) + (+productToAddQuantity.textContent)
   }
   productToAddQuantity.textContent = 1;
 };

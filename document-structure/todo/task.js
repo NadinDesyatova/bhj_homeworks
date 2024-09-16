@@ -12,7 +12,7 @@ const createNewTask = () => {
                     <div class="task__title">
                     ${taskText}
                     </div>
-                    <a href="#" onclick="removeHandler(this)" class="task__remove">&times;</a>
+                    <a href="#" class="task__remove">&times;</a>
                     </div> `;
   tasksList.insertAdjacentHTML('afterBegin', taskHtml);
   taskInputElement.value =  "";
@@ -21,8 +21,11 @@ const createNewTask = () => {
 
 addingTaskButton.addEventListener('click', (event) => {
   event.preventDefault();
-  if (taskInputElement.value) {
-    createNewTask();  
+  if ((taskInputElement.value).trim()) {
+    createNewTask();
+    const currentTask = tasksList.querySelectorAll('.task')[0];
+    const removeBtn = currentTask.querySelector('.task__remove');
+    removeBtn.addEventListener('click', (event) => removeHandler(event.target));
   }
 });
 

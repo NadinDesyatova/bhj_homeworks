@@ -13,21 +13,19 @@ const createTooltipElement = (hasTooltipElement) => {
 [...hasTooltipElements].forEach((element) => {
   element.addEventListener('click', (event) => {
     event.preventDefault();
-  });
-});
-
-[...hasTooltipElements].forEach((element) => {
-  element.addEventListener('mousedown', (event) => {
-    event.preventDefault();
     const currentTooltip = element.nextElementSibling;
-    currentTooltip.classList.add('tooltip_active');   
-  });
-});
-  
-[...hasTooltipElements].forEach((element) => {
-  element.addEventListener('mouseup', (event) => {
-    event.preventDefault();
-    const currentTooltip = element.nextElementSibling;
-    currentTooltip.classList.remove('tooltip_active');
+    if (element.dataset.toolTip === 'active') {
+      currentTooltip.classList.toggle('tooltip_active');
+    } else {
+      [...hasTooltipElements].forEach((element) => {
+        element.nextElementSibling.classList.remove('tooltip_active');
+        element.dataset.toolTip = '';
+      });
+      element.dataset.toolTip = 'active';
+      const {top, left} = element.getBoundingClientRect();
+      currentTooltip.style.left = `${left}px`;
+      currentTooltip.style.top = `${top + 20}px`;
+      currentTooltip.classList.add('tooltip_active');
+    }
   });
 });
