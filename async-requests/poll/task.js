@@ -1,15 +1,11 @@
-const xhr1 = new XMLHttpRequest();
 const pollTitle = document.getElementById('poll__title');
 const pollAnswers = document.getElementById('poll__answers');
 const poll = document.querySelector('.poll');
 
 function sendXhr(xhr, method, url, typeOfResponse, argumentForSend = null, headers = []) {
   xhr.open(method, url, true);
-  
   headers.forEach(header => xhr.setRequestHeader(header[0], header[1]));
-
   xhr.responseType = typeOfResponse;
-
   xhr.send(argumentForSend);
 };
 
